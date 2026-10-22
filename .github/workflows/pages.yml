@@ -28,6 +28,11 @@ jobs:
           unzip -q github-upload.zip -d _unz
           cp -R _unz/teams-kamera-anleitung/. _site/
           touch _site/.nojekyll
+      - name: Add logo slots, logos and newer PDF from the repo
+        run: |
+          if [ -f logos.js ]; then cp logos.js _site/ && sed -i 's#</body>#<script src="logos.js"></script></body>#' _site/index.html; fi
+          if [ -d logos ]; then cp -R logos _site/; fi
+          if [ -f quickstart.pdf ]; then cp quickstart.pdf _site/quickstart.pdf; fi
           ls -R _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
