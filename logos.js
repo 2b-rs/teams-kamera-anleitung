@@ -5,7 +5,9 @@
   var found = {};
   function load(name, done) {
     if (name in found) { if (found[name]) done(found[name]); return; }
-    var tries = ['logos/' + name + '.svg', 'logos/' + name + '.png'], i = 0;
+    var names = ({ 'microsoft-teams': ['microsoft-teams', 'teams'], 'system-settings': ['system-settings', 'settings'] })[name] || [name];
+    var tries = [], i = 0;
+    names.forEach(function (n) { tries.push('logos/' + n + '.svg', 'logos/' + n + '.png'); });
     (function next() {
       if (i >= tries.length) { found[name] = null; return; }
       var url = tries[i++], probe = new Image();
